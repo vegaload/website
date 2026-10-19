@@ -1,0 +1,12 @@
+---
+description: Commits must not include a co-author trailer
+alwaysApply: true
+---
+
+# No co-authoring
+
+Never add a `Co-authored-by` trailer to a commit. This includes `Co-authored-by: Cursor <cursoragent@cursor.com>`.
+
+- Write the commit message as the human author only.
+- If a commit command injects a `Co-authored-by` trailer, replace that commit with `git commit-tree` using the same tree, parent, and message, and no trailer. Verify the message before pushing.
+- Do not amend or force-push a commit that is already on the remote unless the user explicitly asks.
