@@ -1,19 +1,23 @@
 ---
 title: 'What VegaLoad does'
-description: 'The main parts of VegaLoad: an agent in the repo, fourteen protocols, pass-or-fail gates, host safety, and an offline report.'
-date: 2026-10-19
-author: The VegaLoad team
+description: 'Ask your agent to write and run a load test. VegaLoad also covers fourteen protocols, pass-or-fail gates, host safety, and an offline report.'
+date: 2026-10-20
+author: Uma Mukkara
 tags: [features, getting-started]
-draft: true
+draft: false
 ---
 
-VegaLoad is an open-source load tester. You run it from the terminal, or you ask your coding agent to write the test and run it. These are the main parts.
+VegaLoad is an open-source load tester for coding agents. You ask for a load test in plain words. The agent writes the file next to your code, runs it, and tells you whether it passed. The same commands work from the terminal. These are the main parts.
 
-## An agent in the repo
+## Ask your agent
 
-`vegaload init` sets up this project for Claude Code and Cursor. It adds the skill files and an MCP server, so the agent already knows how to write and run a test.
+This is the main way to use VegaLoad. `vegaload init` sets up Claude Code and Cursor in this project. It adds skill files and an MCP server, so the agent can create a scenario, run it, read the results, suggest a threshold, diagnose a failure, and compare two runs.
 
-`vegaload new checkout` writes `checkout.vl.js` next to your code. You can also start from an OpenAPI spec (`vegaload new -from-openapi`) or a browser recording (`vegaload import har`). Scenarios are JavaScript, or Python if you pass `-python`.
+**A new endpoint.** You say: "Write a load test for the checkout API and run it." The agent adds `checkout.vl.js` next to `checkout.js`, runs it, and saves `vegaload-report-<timestamp>.html`.
+
+**A spec you already have.** You say: "Generate a load test from this OpenAPI file and run it." VegaLoad writes a scenario that calls every operation as a named step. A browser recording works the same way, with `vegaload import har`.
+
+You can still start by hand with `vegaload new checkout`. Scenarios are JavaScript, or Python if you pass `-python`.
 
 ## Fourteen protocols
 

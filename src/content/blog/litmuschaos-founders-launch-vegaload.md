@@ -5,7 +5,7 @@ description: 'The founders of LitmusChaos launch VegaLoad, an open-source load t
 date: 2026-10-20
 author: Uma Mukkara and Karthik Satchitanand
 tags: [announcement, getting-started]
-draft: true
+draft: false
 ---
 
 We have spent the last ten years on resilience testing, in one form or another.
