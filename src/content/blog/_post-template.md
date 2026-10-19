@@ -1,6 +1,7 @@
 ---
 title: 'Short, plain title'
 # seoTitle: 'Shorter title for the browser tab'   (optional: up to 60 characters)
+# image: /og-default.png                         (optional: a file in public/, shown when the link is shared)
 description: 'One or two sentences. Up to 200 characters. It shows in the blog list, in search results and in shared links.'
 date: 2026-01-01
 # updated: 2026-01-15      (optional: show when you changed the post)
