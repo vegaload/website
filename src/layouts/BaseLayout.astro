@@ -73,13 +73,18 @@ const canonical = new URL(path, siteUrl).toString();
           </svg>
           <span>VegaLoad</span>
         </a>
-        <nav class="navlinks" aria-label="Site">
+        <nav class="navlinks" aria-label="Page sections">
+          <a href="/#workflow">The Shift</a>
+          <a href="/?slide=1#workflow">Co-located</a>
+          <a href="/#platform">Features</a>
+          <a href="/?slide=1#platform">Safety</a>
+          <a href="/?slide=3#platform">Migrate</a>
           <a href="/blog/" aria-current={active === 'blog' ? 'page' : undefined}>Blog</a>
           <a href="https://vegaload.github.io/vegaload/">Docs</a>
         </nav>
         <div class="nav-actions">
-          <a class="pill pill-ghost hide-sm" href="https://github.com/vegaload/vegaload">GitHub</a>
-          <a class="pill pill-solid" href="/#install">Install</a>
+          <a class="pill pill-ghost pill-sm" href="https://github.com/vegaload/vegaload">GitHub</a>
+          <a class="pill pill-solid pill-sm" href="/#install">Install</a>
         </div>
       </div>
     </header>
@@ -88,18 +93,28 @@ const canonical = new URL(path, siteUrl).toString();
       <slot />
     </main>
 
-    <footer class="footer">
-      <div class="wrap footer-inner">
-        <p>
-          Open source, sponsored by <a href="https://www.harness.io">Harness</a>.
-        </p>
-        <ul>
-          <li><a href="https://github.com/vegaload/vegaload">GitHub</a></li>
-          <li><a href="/blog/">Blog</a></li>
-          <li><a href="https://vegaload.github.io/vegaload/">Docs</a></li>
-          <li><a href="/rss.xml">RSS</a></li>
-          <li><a href="https://github.com/vegaload/vegaload/blob/main/LICENSE">Apache-2.0 License</a></li>
-        </ul>
+    <footer>
+      <div class="wrap foot">
+        <div>
+          <p class="sponsor-kicker">Sponsored by</p>
+          <a class="sponsor-logo" href="https://www.harness.io" aria-label="Harness">
+            <img src="/harness-logo.png" alt="Harness" />
+          </a>
+          <p class="sponsor-text">VegaLoad is an open-source project sponsored by Harness. It is built by the Harness Resilience Testing team.</p>
+        </div>
+        <div>
+          <ul class="foot-links">
+            <li><a href="https://github.com/vegaload/vegaload">GitHub</a></li>
+            <li><a href="/blog/">Blog</a></li>
+            <li><a href="https://github.com/vegaload/vegaload/tree/main/examples/cookbook">Cookbook</a></li>
+            <li><a href="https://github.com/vegaload/vegaload/blob/main/LICENSE">Apache-2.0 License</a></li>
+            <li><a href="https://www.harness.io/products/resilience-testing">Harness Resilience Testing</a></li>
+          </ul>
+        </div>
+        <div class="legal">
+          <p><strong>© 2026 Harness, Inc.</strong> All copyrights for VegaLoad belong to Harness.</p>
+          <p>VegaLoad is released under the Apache License 2.0. Harness and the Harness logo are trademarks of Harness, Inc.</p>
+        </div>
       </div>
     </footer>
   </body>
