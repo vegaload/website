@@ -26,6 +26,7 @@ npm run check      # checks types and content
    | Field | Meaning |
    | --- | --- |
    | `title` | The post title. |
+   | `seoTitle` | Optional. A shorter title for the browser tab, up to 60 characters. The page heading keeps `title`. |
    | `description` | One or two sentences, up to 200 characters. It shows in the list, in search results and in shared links. |
    | `date` | The publish date, `YYYY-MM-DD`. |
    | `updated` | Optional. The date you last changed the post. |
