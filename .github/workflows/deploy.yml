@@ -10,8 +10,8 @@ permissions:
   contents: read
 
 concurrency:
-  group: pages
-  cancel-in-progress: false
+  group: website-pages
+  cancel-in-progress: true
 
 env:
   ASTRO_TELEMETRY_DISABLED: '1'
