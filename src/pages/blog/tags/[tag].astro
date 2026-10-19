@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getPublishedPosts, formatDate, readingMinutes, tagSlug } from '../../../lib/posts';
+
+export async function getStaticPaths() {
+  const posts = await getPublishedPosts();
+  const names = new Map<string, string>();
+  for (const p of posts) for (const t of p.data.tags) names.set(tagSlug(t), t);
+  return [...names].map(([slug, name]) => ({
+    params: { tag: slug },
+    props: {
+      name,
+      posts: posts.filter((p) => p.data.tags.some((t) => tagSlug(t) === slug)),
+    },
+  }));
+}
+
+const { name, posts } = Astro.props;
+---
+
+<BaseLayout
+  title={`${name} | VegaLoad blog`}
+  description={`Posts tagged ${name} on the VegaLoad blog.`}
+  path={`/blog/tags/${tagSlug(name)}/`}
+  active="blog"
+>
+  <div class="wrap">
+    <section class="page-head">
+      <p class="kicker">Tag</p>
+      <h1>{name}</h1>
+      <p><a class="back" href="/blog/">← All posts</a></p>
+    </section>
+
+    <ul class="post-list">
+      {
+        posts.map((post) => (
+          <li class="post-item">
+            <a class="post-link" href={`/blog/${post.id}/`}>
+              <p class="post-meta">
+                {formatDate(post.data.date)} · {readingMinutes(post.body)} min read
+              </p>
+              <h2>{post.data.title}</h2>
+              <p class="post-desc">{post.data.description}</p>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</BaseLayout>
