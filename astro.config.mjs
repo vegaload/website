@@ -18,7 +18,8 @@ function tagSlug(tag) {
 function field(frontmatter, name) {
   const match = frontmatter.match(new RegExp(`^${name}:\\s*(.+)$`, 'm'));
   if (!match) return '';
-  return match[1].trim().replace(/^['"]|['"]$/g, '');
+  const value = match[1].replace(/\s+#.*$/, '').trim();
+  return value.replace(/^['"]|['"]$/g, '').trim();
 }
 
 function asDay(value) {
