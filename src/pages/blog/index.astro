@@ -1,0 +1,70 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getPublishedPosts, formatDate, readingMinutes, tagSlug } from '../../lib/posts';
+
+const posts = await getPublishedPosts();
+const tags = [...new Set(posts.flatMap((p) => p.data.tags))].sort((a, b) => a.localeCompare(b));
+---
+
+<BaseLayout
+  title="Blog | VegaLoad"
+  description="News, release notes and guides from the VegaLoad team. Load testing for agentic developers."
+  path="/blog/"
+  active="blog"
+>
+  <div class="wrap">
+    <section class="page-head">
+      <p class="kicker">Blog</p>
+      <h1>News and guides</h1>
+      <p>Release notes, how-to guides and ideas about load testing with your AI agent.</p>
+      {
+        tags.length > 0 && (
+          <ul class="tag-row" aria-label="Tags">
+            {tags.map((t) => (
+              <li>
+                <a class="tag" href={`/blog/tags/${tagSlug(t)}/`}>{t}</a>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </section>
+
+    {
+      posts.length === 0 ? (
+        <div class="empty">
+          <p>The first posts are coming soon.</p>
+          <p>
+            For now, read the <a href="https://github.com/vegaload/vegaload/releases">release notes on GitHub</a> or
+            the <a href="https://vegaload.github.io/vegaload/">docs</a>.
+          </p>
+        </div>
+      ) : (
+        <ul class="post-list">
+          {posts.map((post) => (
+            <li class="post-item">
+              <a class="post-link" href={`/blog/${post.id}/`}>
+                <p class="post-meta">
+                  {formatDate(post.data.date)} · {readingMinutes(post.body)} min read
+                  {post.data.draft && ' · DRAFT'}
+                </p>
+                <h2>{post.data.title}</h2>
+                <p class="post-desc">{post.data.description}</p>
+              </a>
+              {post.data.tags.length > 0 && (
+                <div class="post-tags">
+                  {post.data.tags.map((t) => (
+                    <a class="tag" href={`/blog/tags/${tagSlug(t)}/`}>
+                      {t}
+                    </a>
+                  ))}
+                </div>
+              )}
+              <div style="height: 24px"></div>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </div>
+</BaseLayout>
