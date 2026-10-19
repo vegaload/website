@@ -1,4 +1,4 @@
-import { readFileSync, readdirSync, statSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'astro/config';
@@ -58,9 +58,7 @@ function publishedPosts() {
 function lastmodFor(url) {
   const posts = publishedPosts();
   const key = url.replace(/\/$/, '');
-  if (key === site) {
-    return asDay(statSync(join(root, 'public/index.html')).mtime.toISOString());
-  }
+  if (key === site) return undefined;
   if (key === `${site}/blog`) return latest(posts.map((post) => post.day));
   const post = posts.find((item) => key === `${site}/blog/${item.id}`);
   if (post) return post.day;
