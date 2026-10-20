@@ -38,6 +38,13 @@ VegaLoad is one small binary. It runs on macOS, Linux, Windows, Docker and Kuber
 
 ## How to try it
 
+Here is the whole flow in Cursor. We set up VegaLoad, ask the agent for a load test, approve the run and read the result.
+
+<video class="demo-video" controls muted loop playsinline preload="metadata" poster="/blog/vegaload-cursor-demo-poster.jpg" aria-label="Screen recording of VegaLoad in Cursor. The agent writes a load test, runs it and reports the results.">
+  <source src="/blog/vegaload-cursor-demo.mp4" type="video/mp4" />
+  <img src="/blog/vegaload-cursor-demo.gif" alt="Screen recording of VegaLoad in Cursor. The agent writes a load test, runs it and reports the results." />
+</video>
+
 1. **Install.** On macOS and Linux:
 
    ```bash
