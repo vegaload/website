@@ -82,7 +82,7 @@ const imageUrl = new URL(imagePath, siteUrl).toString();
           </svg>
           <span>VegaLoad</span>
         </a>
-        <nav class="navlinks" aria-label="Page sections">
+        <nav class="navlinks" id="site-nav" aria-label="Page sections">
           <a href="/#workflow">The Shift</a>
           <a href="/?slide=1#workflow">Co-located</a>
           <a href="/#platform">Features</a>
@@ -92,7 +92,8 @@ const imageUrl = new URL(imagePath, siteUrl).toString();
           <a href="https://vegaload.github.io/vegaload/">Docs</a>
         </nav>
         <div class="nav-actions">
-          <a class="pill pill-ghost pill-sm" href="https://github.com/vegaload/vegaload">GitHub</a>
+          <button class="nav-menu" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+          <a class="pill pill-ghost pill-sm" href="https://github.com/vegaload/vegaload" target="_blank" rel="noopener noreferrer">GitHub</a>
           <a class="pill pill-solid pill-sm" href="/#install">Install</a>
         </div>
       </div>
@@ -126,5 +127,23 @@ const imageUrl = new URL(imagePath, siteUrl).toString();
         </div>
       </div>
     </footer>
+    <script>
+      const header = document.querySelector('.nav');
+      const button = document.querySelector('.nav-menu');
+      const links = document.querySelector('.navlinks');
+      if (header && button && links) {
+        button.addEventListener('click', () => {
+          const open = header.classList.toggle('is-open');
+          button.setAttribute('aria-expanded', open ? 'true' : 'false');
+          button.textContent = open ? 'Close' : 'Menu';
+        });
+        links.addEventListener('click', (event) => {
+          if (!(event.target instanceof Element) || !event.target.closest('a')) return;
+          header.classList.remove('is-open');
+          button.setAttribute('aria-expanded', 'false');
+          button.textContent = 'Menu';
+        });
+      }
+    </script>
   </body>
 </html>

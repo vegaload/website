@@ -201,6 +201,18 @@
     .navlinks a { color: var(--graphite); transition: color 0.18s ease; }
     .navlinks a:hover { color: var(--white); }
     .nav-actions { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+    .nav-menu {
+      display: none;
+      height: 34px;
+      padding: 0 14px;
+      border-radius: 999px;
+      border: 1px solid var(--hair);
+      background: transparent;
+      color: var(--fog);
+      font-family: var(--mono);
+      font-size: 12px;
+      cursor: pointer;
+    }
 
     /* Reveal */
     /* Reveals */
@@ -925,7 +937,18 @@
     }
 
     @media (max-width: 720px) {
-      .navlinks { display: none; }
+      .nav-inner { flex-wrap: wrap; }
+      .nav-menu { display: inline-flex; align-items: center; }
+      .navlinks {
+        display: none;
+        order: 3;
+        flex: 1 0 100%;
+        margin: 0 0 12px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+      }
+      .nav.is-open .navlinks { display: flex; }
       .shift-row { grid-template-columns: 1fr; }
       .shift-arrow { transform: rotate(90deg); margin: 6px 0; }
       .slider-controls { border-radius: 16px; padding: 10px; }
@@ -971,7 +994,7 @@
         </svg>
         <span>VegaLoad</span>
       </a>
-      <nav class="navlinks" aria-label="Page sections">
+      <nav class="navlinks" id="site-nav" aria-label="Page sections">
         <a href="#workflow" onclick="window.deckWorkflow && window.deckWorkflow.goTo(0)">The Shift</a>
         <a href="#workflow" onclick="window.deckWorkflow && window.deckWorkflow.goTo(1)">Co-located</a>
         <a href="#platform" onclick="window.deckPlatform && window.deckPlatform.goTo(0)">Features</a>
@@ -981,11 +1004,31 @@
         <a href="https://vegaload.github.io/vegaload/">Docs</a>
       </nav>
       <div class="nav-actions">
-        <a class="pill pill-ghost pill-sm" href="https://github.com/vegaload/vegaload">GitHub</a>
+        <button class="nav-menu" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+        <a class="pill pill-ghost pill-sm" href="https://github.com/vegaload/vegaload" target="_blank" rel="noopener noreferrer">GitHub</a>
         <a class="pill pill-solid pill-sm" href="#install">Install</a>
       </div>
     </div>
   </header>
+  <script>
+    (function () {
+      var header = document.querySelector(".nav");
+      var button = document.querySelector(".nav-menu");
+      var links = document.querySelector(".navlinks");
+      if (!header || !button || !links) return;
+      button.addEventListener("click", function () {
+        var open = header.classList.toggle("is-open");
+        button.setAttribute("aria-expanded", open ? "true" : "false");
+        button.textContent = open ? "Close" : "Menu";
+      });
+      links.addEventListener("click", function (event) {
+        if (!event.target.closest || !event.target.closest("a")) return;
+        header.classList.remove("is-open");
+        button.setAttribute("aria-expanded", "false");
+        button.textContent = "Menu";
+      });
+    })();
+  </script>
 
   <main id="main">
     <!-- HERO SECTION -->
