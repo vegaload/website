@@ -10,7 +10,7 @@ draft: false
 
 We have spent the last ten years on resilience testing, in one form or another.
 
-In 2017, we founded LitmusChaos. In 2019, we donated it to the CNCF. In 2022, we joined forces with Harness to build the enterprise product for resilience testing.
+In 2018, we founded LitmusChaos. In 2020, we donated it to the CNCF. In 2022, we joined forces with Harness to build the enterprise product for resilience testing.
 
 The last four years have been rewarding. We worked with large enterprises as they set up resilience testing and scaled it across many teams.
 
