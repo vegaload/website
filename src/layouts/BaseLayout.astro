@@ -93,7 +93,7 @@ const imageUrl = new URL(imagePath, siteUrl).toString();
         </nav>
         <div class="nav-actions">
           <button class="nav-menu" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
-          <a class="pill pill-ghost pill-sm" href="https://github.com/vegaload/vegaload" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a class="gh-star" href="https://github.com/vegaload/vegaload" target="_blank" rel="noopener noreferrer" aria-label="Star VegaLoad on GitHub"><span class="gh-star-main"><svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path fill="currentColor" d="M8 1.15l1.74 3.52 3.89.57-2.81 2.74.66 3.87L8 10l-3.48 1.85.66-3.87L2.37 5.24l3.89-.57L8 1.15z"/></svg>Star</span><span class="gh-star-count" data-github-stars hidden></span></a>
           <a class="pill pill-solid pill-sm" href="/#install">Install</a>
         </div>
       </div>
@@ -110,16 +110,19 @@ const imageUrl = new URL(imagePath, siteUrl).toString();
           <a class="sponsor-logo" href="https://www.harness.io" aria-label="Harness">
             <img src="/harness-logo.png" alt="Harness" />
           </a>
-          <p class="sponsor-text">VegaLoad is an open-source project sponsored by Harness. It is built by the Harness Resilience Testing team.</p>
+          <p class="sponsor-text">VegaLoad is an open-source project sponsored by Harness.</p>
         </div>
         <div>
-          <ul class="foot-links">
-            <li><a href="https://github.com/vegaload/vegaload">GitHub</a></li>
-            <li><a href="/blog/">Blog</a></li>
-            <li><a href="https://github.com/vegaload/vegaload/tree/main/examples/cookbook">Cookbook</a></li>
-            <li><a href="https://github.com/vegaload/vegaload/blob/main/LICENSE">Apache-2.0 License</a></li>
-            <li><a href="https://www.harness.io/products/resilience-testing">Harness Resilience Testing</a></li>
-          </ul>
+          <div class="foot-links">
+            <ul>
+              <li><a href="https://github.com/vegaload/vegaload">GitHub</a></li>
+              <li><a href="https://vegaload.github.io/vegaload/">Docs</a></li>
+              <li><a href="https://github.com/vegaload/vegaload/tree/main/examples/cookbook">Cookbook</a></li>
+            </ul>
+            <ul>
+              <li><a href="https://www.harness.io/products/resilience-testing">Harness Resilience Testing</a></li>
+            </ul>
+          </div>
         </div>
         <div class="legal">
           <p><strong>© 2026 Harness, Inc.</strong> All copyrights for VegaLoad belong to Harness.</p>
@@ -144,6 +147,20 @@ const imageUrl = new URL(imagePath, siteUrl).toString();
           button.textContent = 'Menu';
         });
       }
+      fetch('https://api.github.com/repos/vegaload/vegaload')
+        .then((response) => (response.ok ? response.json() : null))
+        .then((data) => {
+          if (!data || typeof data.stargazers_count !== 'number') return;
+          const n = data.stargazers_count;
+          const text = n > 999 ? (n / 1000).toFixed(1) + 'k' : String(n);
+          document.querySelectorAll('[data-github-stars]').forEach((el) => {
+            el.textContent = text;
+            if (el instanceof HTMLElement) el.hidden = false;
+            const link = el.closest('a');
+            if (link) link.setAttribute('aria-label', 'Star VegaLoad on GitHub, ' + n + (n === 1 ? ' star' : ' stars'));
+          });
+        })
+        .catch(() => {});
     </script>
   </body>
 </html>
