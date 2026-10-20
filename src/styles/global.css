@@ -118,8 +118,31 @@ h1, h2, h3 {
 .navlinks a { color: var(--graphite); transition: color 0.18s ease; }
 .navlinks a:hover, .navlinks a[aria-current='page'] { color: var(--white); }
 .nav-actions { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+.nav-menu {
+  display: none;
+  height: 34px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid var(--hair);
+  background: transparent;
+  color: var(--fog);
+  font-family: var(--mono);
+  font-size: 12px;
+  cursor: pointer;
+}
 @media (max-width: 720px) {
-  .navlinks { display: none; }
+  .nav-inner { flex-wrap: wrap; }
+  .nav-menu { display: inline-flex; align-items: center; }
+  .navlinks {
+    display: none;
+    order: 3;
+    flex: 1 0 100%;
+    margin: 0 0 12px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .nav.is-open .navlinks { display: flex; }
 }
 
 /* Blog list */
