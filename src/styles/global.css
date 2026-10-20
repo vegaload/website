@@ -130,6 +130,29 @@ h1, h2, h3 {
   font-size: 12px;
   cursor: pointer;
 }
+.gh-star {
+  display: inline-flex;
+  align-items: stretch;
+  height: 34px;
+  border: 1px solid var(--hair);
+  border-radius: 999px;
+  overflow: hidden;
+  color: var(--fog);
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 1;
+  transition: border-color 0.18s ease, color 0.18s ease;
+}
+.gh-star:hover { border-color: var(--fog); color: var(--white); }
+.gh-star-main { display: inline-flex; align-items: center; gap: 6px; padding: 0 12px; }
+.gh-star-count {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 11px;
+  border-left: 1px solid var(--hair);
+  color: var(--white);
+}
+.gh-star-count[hidden] { display: none; }
 @media (max-width: 720px) {
   .nav-inner { flex-wrap: wrap; }
   .nav-menu { display: inline-flex; align-items: center; }
@@ -260,7 +283,8 @@ footer { padding: 48px 0 40px; border-top: 1px solid var(--hair); color: var(--g
 .sponsor-logo { display: inline-block; margin: 10px 0 0; line-height: 0; }
 .sponsor-logo img { display: block; height: 32px; width: auto; max-width: 100%; }
 .sponsor-text { margin: 8px 0 0; max-width: 48ch; color: var(--ash); font-size: 14px; line-height: 1.5; }
-.foot-links { display: flex; flex-wrap: wrap; gap: 10px 24px; margin: 0; padding: 0; list-style: none; font-size: 14px; }
+.foot-links { display: grid; grid-template-columns: max-content max-content; justify-content: end; gap: 12px 48px; margin: 0; }
+.foot-links ul { display: flex; flex-direction: column; gap: 12px; margin: 0; padding: 0; list-style: none; font-size: 14px; }
 .foot-links a { color: var(--fog); }
 .foot-links a:hover { color: var(--white); }
 .legal { grid-column: 1 / -1; margin: 16px 0 0; padding-top: 20px; border-top: 1px solid var(--hair-soft); display: flex; flex-direction: column; gap: 6px; color: var(--mute); font-size: 12px; }
@@ -269,6 +293,7 @@ footer { padding: 48px 0 40px; border-top: 1px solid var(--hair); color: var(--g
 
 @media (max-width: 980px) {
   .foot { grid-template-columns: minmax(0, 1fr); }
+  .foot-links { justify-content: start; }
 }
 
 @media (prefers-reduced-motion: reduce) {

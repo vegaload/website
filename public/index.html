@@ -213,6 +213,29 @@
       font-size: 12px;
       cursor: pointer;
     }
+    .gh-star {
+      display: inline-flex;
+      align-items: stretch;
+      height: 34px;
+      border: 1px solid var(--hair);
+      border-radius: 999px;
+      overflow: hidden;
+      color: var(--fog);
+      font-family: var(--mono);
+      font-size: 12px;
+      line-height: 1;
+      transition: border-color 0.18s ease, color 0.18s ease;
+    }
+    .gh-star:hover { border-color: var(--fog); color: var(--white); }
+    .gh-star-main { display: inline-flex; align-items: center; gap: 6px; padding: 0 12px; }
+    .gh-star-count {
+      display: inline-flex;
+      align-items: center;
+      padding: 0 11px;
+      border-left: 1px solid var(--hair);
+      color: var(--white);
+    }
+    .gh-star-count[hidden] { display: none; }
 
     /* Reveal */
     /* Reveals */
@@ -911,7 +934,8 @@
     .sponsor-logo img { display: block; height: 32px; width: auto; max-width: 100%; }
     .sponsor-name { margin: 6px 0 0; font-family: var(--display); font-size: 28px; font-weight: 500; letter-spacing: -0.025em; line-height: 1.1; color: var(--white); }
     .sponsor-text { margin: 8px 0 0; max-width: 48ch; color: var(--ash); font-size: 14px; line-height: 1.5; }
-    .foot-links { display: flex; flex-wrap: wrap; gap: 10px 24px; margin: 0; padding: 0; list-style: none; font-size: 14px; }
+    .foot-links { display: grid; grid-template-columns: max-content max-content; justify-content: end; gap: 12px 48px; margin: 0; }
+    .foot-links ul { display: flex; flex-direction: column; gap: 12px; margin: 0; padding: 0; list-style: none; font-size: 14px; }
     .foot-links a { color: var(--fog); }
     .foot-links a:hover { color: var(--white); }
     .legal { grid-column: 1 / -1; margin: 16px 0 0; padding-top: 20px; border-top: 1px solid var(--hair-soft); display: flex; flex-direction: column; gap: 6px; color: var(--mute); font-size: 12px; }
@@ -934,6 +958,7 @@
       .split-cards { grid-template-columns: 1fr; }
       .install-grid { grid-template-columns: minmax(0, 1fr); gap: 28px; }
       .foot { grid-template-columns: minmax(0, 1fr); }
+      .foot-links { justify-content: start; }
     }
 
     @media (max-width: 720px) {
@@ -1005,7 +1030,7 @@
       </nav>
       <div class="nav-actions">
         <button class="nav-menu" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
-        <a class="pill pill-ghost pill-sm" href="https://github.com/vegaload/vegaload" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a class="gh-star" href="https://github.com/vegaload/vegaload" target="_blank" rel="noopener noreferrer" aria-label="Star VegaLoad on GitHub"><span class="gh-star-main"><svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path fill="currentColor" d="M8 1.15l1.74 3.52 3.89.57-2.81 2.74.66 3.87L8 10l-3.48 1.85.66-3.87L2.37 5.24l3.89-.57L8 1.15z"/></svg>Star</span><span class="gh-star-count" data-github-stars hidden></span></a>
         <a class="pill pill-solid pill-sm" href="#install">Install</a>
       </div>
     </div>
@@ -1027,6 +1052,20 @@
         button.setAttribute("aria-expanded", "false");
         button.textContent = "Menu";
       });
+      fetch("https://api.github.com/repos/vegaload/vegaload")
+        .then(function (response) { return response.ok ? response.json() : null; })
+        .then(function (data) {
+          if (!data || typeof data.stargazers_count !== "number") return;
+          var n = data.stargazers_count;
+          var text = n > 999 ? (n / 1000).toFixed(1) + "k" : String(n);
+          document.querySelectorAll("[data-github-stars]").forEach(function (el) {
+            el.textContent = text;
+            el.hidden = false;
+            var link = el.closest("a");
+            if (link) link.setAttribute("aria-label", "Star VegaLoad on GitHub, " + n + (n === 1 ? " star" : " stars"));
+          });
+        })
+        .catch(function () {});
     })();
   </script>
 
@@ -1510,16 +1549,19 @@
         <a class="sponsor-logo" href="https://www.harness.io" aria-label="Harness">
           <img src="/harness-logo.png" alt="Harness" />
         </a>
-        <p class="sponsor-text">VegaLoad is an open-source project sponsored by Harness. It is built by the Harness Resilience Testing team.</p>
+        <p class="sponsor-text">VegaLoad is an open-source project sponsored by Harness.</p>
       </div>
       <div>
-        <ul class="foot-links">
-          <li><a href="https://github.com/vegaload/vegaload">GitHub</a></li>
-          <li><a href="/blog/">Blog</a></li>
-          <li><a href="https://github.com/vegaload/vegaload/tree/main/examples/cookbook">Cookbook</a></li>
-          <li><a href="https://github.com/vegaload/vegaload/blob/main/LICENSE">Apache-2.0 License</a></li>
-          <li><a href="https://www.harness.io/products/resilience-testing">Harness Resilience Testing</a></li>
-        </ul>
+        <div class="foot-links">
+          <ul>
+            <li><a href="https://github.com/vegaload/vegaload">GitHub</a></li>
+            <li><a href="https://vegaload.github.io/vegaload/">Docs</a></li>
+            <li><a href="https://github.com/vegaload/vegaload/tree/main/examples/cookbook">Cookbook</a></li>
+          </ul>
+          <ul>
+            <li><a href="https://www.harness.io/products/resilience-testing">Harness Resilience Testing</a></li>
+          </ul>
+        </div>
       </div>
       <div class="legal">
         <p><strong>© 2026 Harness, Inc.</strong> All copyrights for VegaLoad belong to Harness.</p>
